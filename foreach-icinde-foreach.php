@@ -1,0 +1,17 @@
+<meta charset="utf-8"><?php
+$bilgiler= array (
+		array("ömer","çıtak",22),
+		array("hakan","dinçeler",10)
+		);
+foreach ($bilgiler as $k=>$v)
+{
+  foreach ($v as $kk=>$vv)
+	{
+	echo $vv."<br/>";
+	}
+echo "<hr/>";
+}
+echo "<hr/>";
+///////////////
+
+?>

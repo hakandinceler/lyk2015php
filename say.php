@@ -1,0 +1,50 @@
+<meta charset=utf-8><center>
+<style type="text/css">a {text-decoration: none}</style>
+<a href="?islem=yukari" ><font size=250%>&#8679;</font></a><br/><a href=?islem=asagi><font size=250%>&#8681;</font></a>
+<table border='0' cellspacing=6 cellpadding=6> 
+<?php
+
+session_start(); //session başlattım
+$yon = "asagi"; //ok yönünü default belirttim
+
+//session i degiskeni yoksa başlangıç değeri verdim
+if (!isset($_SESSION["i"])) {  
+    $_SESSION["i"] = 1;
+}
+
+//////////aşağı ok  get değerine göre sessiona sınır verdim////
+/////////eğer üst sınır 5 e ulaşırsa başa dönsün///////////////
+if (isset($_GET["islem"]) && ($_GET["islem"] == "asagi")) {
+    $yon = "asagi";
+    if ($_SESSION["i"] >= 5) {$mesaj= "<h3>Daha Aşağısı Yok!</h3>";$_SESSION["i"] = 1;}
+    else {$_SESSION["i"]++;} //her işlem sonu session bir artsın
+}
+
+//////////yukarı ok  get değerine göre sessiona sınır verdim////
+/////////eğer alt sınır 1 e ulaşırsa başa dönsün///////////////
+if (isset($_GET["islem"]) && ($_GET["islem"] == "yukari")) {
+    $yon = "yukari";
+    if ($_SESSION["i"] <= 1) {$mesaj="<h3>Daha Yukarısı Yok!</h3>";$_SESSION["i"] = 5;}
+    else {$_SESSION["i"]--;}
+}
+//////////////ESAS TABLOYU BASAN KONTROLLÜ DÖNGÜ BAŞLADI//////////////
+for ($i = 1; $i <= 5; $i++) {
+    
+    if ($yon == "yukari") { ///GET E GÖRE YÖNLÜ KARAKTER
+        $char = "&#8648;";
+    } else {
+        $char = "&#8650;";
+    }
+    if ($i == $_SESSION["i"]) {
+        echo "<tr bgcolor='red'><td><h1><font color='white'>" . $char . "</font></h1></td></tr>";
+    } else {
+        echo "<tr bgcolor='black'><td>&nbsp;</td></tr>";
+    }
+}
+///////////////////DÖNGÜ BİTTİ///////////////////////////////////////
+
+if(!isset($mesaj)){$mesaj="";}
+
+?>
+</table><?php echo $mesaj;?>
+</center>
